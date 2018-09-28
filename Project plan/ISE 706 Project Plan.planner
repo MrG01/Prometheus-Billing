@@ -1,0 +1,118 @@
+<?xml version="1.0"?>
+<project name="" company="" manager="" phase="" project-start="20180927T000000Z" mrproject-version="2" calendar="1">
+  <properties/>
+  <phases/>
+  <calendars>
+    <day-types>
+      <day-type id="0" name="Working" description="A default working day"/>
+      <day-type id="1" name="Nonworking" description="A default non working day"/>
+      <day-type id="2" name="Use base" description="Use day from base calendar"/>
+    </day-types>
+    <calendar id="1" name="Default">
+      <default-week mon="0" tue="0" wed="0" thu="0" fri="0" sat="1" sun="1"/>
+      <overridden-day-types>
+        <overridden-day-type id="0">
+          <interval start="0800" end="1200"/>
+          <interval start="1300" end="1700"/>
+        </overridden-day-type>
+      </overridden-day-types>
+      <days/>
+    </calendar>
+  </calendars>
+  <tasks>
+    <task id="1" name="Reviewing the Human Process" note="" work="57600" start="20180927T000000Z" end="20180928T170000Z" work-start="20180927T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+    <task id="2" name="Reviewing the data source" note="" work="57600" start="20180930T170000Z" end="20181002T170000Z" work-start="20181001T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="1" type="FS" lag="172800"/>
+      </predecessors>
+    </task>
+    <task id="3" name="Review of current infrastructure" note="" work="86400" start="20181004T170000Z" end="20181009T170000Z" work-start="20181005T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="2" type="FS" lag="172800"/>
+      </predecessors>
+    </task>
+    <task id="4" name="Infrastructure planning" note="" work="115200" start="20181009T170000Z" end="20181011T170000Z" work-start="20181010T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="3" type="FS"/>
+      </predecessors>
+      <task id="5" name="Database Design" note="" work="57600" start="20181009T170000Z" end="20181011T170000Z" work-start="20181010T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+      <task id="6" name="Application Server Topology" note="" work="57600" start="20181009T170000Z" end="20181011T170000Z" work-start="20181010T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+    </task>
+    <task id="7" name="Meeting with IT Department" note="" work="28800" start="20180927T000000Z" end="20180927T170000Z" work-start="20180927T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+    <task id="8" name="UX Planning" note="" work="144000" start="20181009T170000Z" end="20181011T170000Z" work-start="20181010T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="3" type="FS"/>
+      </predecessors>
+      <task id="9" name="Meeting with the Executive" note="" work="28800" start="20181009T170000Z" end="20181010T170000Z" work-start="20181010T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+      <task id="10" name="Meeting with Management" note="" work="28800" start="20181009T170000Z" end="20181010T170000Z" work-start="20181010T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+      <task id="11" name="Meeting with Sales consultants" note="" work="28800" start="20181009T170000Z" end="20181010T170000Z" work-start="20181010T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+      <task id="12" name=" Planning the UX" note="" work="57600" start="20181009T170000Z" end="20181011T170000Z" work-start="20181010T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+    </task>
+    <task id="13" name="Designing the UX" note="" work="691200" start="20180927T000000Z" end="20181003T170000Z" work-start="20180927T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <task id="14" name="Add Invoice" note="" work="144000" start="20180927T000000Z" end="20181003T170000Z" work-start="20180927T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+      <task id="15" name="View Invoice" note="" work="144000" start="20180927T000000Z" end="20181003T170000Z" work-start="20180927T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+      <task id="16" name="Edit Invoice" note="" work="144000" start="20180927T000000Z" end="20181003T170000Z" work-start="20180927T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+      <task id="17" name="Delete Invoice" note="" work="144000" start="20180927T000000Z" end="20181003T170000Z" work-start="20180927T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+      <task id="18" name="Print Invoice" note="" work="28800" start="20180927T000000Z" end="20180927T170000Z" work-start="20180927T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+      <task id="19" name="Unit Testing" note="" work="86400" start="20180927T000000Z" end="20181001T170000Z" work-start="20180927T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+    </task>
+    <task id="20" name="Staff Training" note="" work="86400" start="20180927T000000Z" end="20180927T170000Z" work-start="20180927T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <task id="21" name="Training Sales Consultants" note="" work="28800" start="20180927T000000Z" end="20180927T170000Z" work-start="20180927T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+      <task id="22" name="Train Management" note="" work="28800" start="20180927T000000Z" end="20180927T170000Z" work-start="20180927T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+      <task id="23" name="Train Executive" note="" work="28800" start="20180927T000000Z" end="20180927T170000Z" work-start="20180927T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+    </task>
+    <task id="24" name="Preparing for application Deployment" note="" work="547200" start="20180927T000000Z" end="20181004T170000Z" work-start="20180927T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <task id="25" name="Installing Infrastructure" note="" work="172800" start="20180927T000000Z" end="20181001T170000Z" work-start="20180927T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <task id="26" name="Database Servers" note="" work="86400" start="20180927T000000Z" end="20181001T170000Z" work-start="20180927T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+        <task id="27" name="Application Server" note="" work="86400" start="20180927T000000Z" end="20181001T170000Z" work-start="20180927T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+      </task>
+      <task id="28" name="Setting up Database" note="" work="115200" start="20180927T000000Z" end="20180928T170000Z" work-start="20180927T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <task id="29" name="Replication Configuration" note="" work="57600" start="20180927T000000Z" end="20180928T170000Z" work-start="20180927T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+        <task id="30" name="Migration Deployment" note="" work="57600" start="20180927T000000Z" end="20180928T170000Z" work-start="20180927T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+      </task>
+      <task id="31" name="Setting up application servers" note="" work="172800" start="20180927T000000Z" end="20181004T170000Z" work-start="20180927T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <task id="32" name="Intergrate into current server form" note="" work="86400" start="20180927T000000Z" end="20181001T170000Z" work-start="20180927T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+        <task id="33" name="Confirm connectivity to database servers" note="" work="28800" start="20181003T170000Z" end="20181004T170000Z" work-start="20181004T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+          <predecessors>
+            <predecessor id="1" predecessor-id="34" type="FS"/>
+          </predecessors>
+        </task>
+        <task id="34" name="Configuration of application servers" note="" work="57600" start="20181001T170000Z" end="20181003T170000Z" work-start="20181002T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+          <predecessors>
+            <predecessor id="1" predecessor-id="32" type="FS"/>
+          </predecessors>
+        </task>
+      </task>
+      <task id="35" name="Security review of platform" note="" work="57600" start="20180927T000000Z" end="20180928T170000Z" work-start="20180927T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+      <task id="36" name="Meeting with IT dept." note="" work="28800" start="20180927T000000Z" end="20180927T170000Z" work-start="20180927T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+    </task>
+    <task id="37" name="Application Deployment" note="" work="172800" start="20180927T000000Z" end="20181001T170000Z" work-start="20180927T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <task id="38" name="Deploy app to applicable machines" note="" work="28800" start="20180927T000000Z" end="20180927T170000Z" work-start="20180927T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+      <task id="39" name="Verify connection to app servers" note="" work="28800" start="20180927T000000Z" end="20180927T170000Z" work-start="20180927T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+      <task id="40" name="Verify features" note="The Add, Delete, Edit, View and Print features will be subject to verification." work="28800" start="20180927T000000Z" end="20180927T170000Z" work-start="20180927T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+      <task id="41" name="Support on Standby" note="" work="86400" start="20180927T000000Z" end="20181001T170000Z" work-start="20180927T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+    </task>
+    <task id="42" name="Deploy Email Feature" note="" work="115200" start="20180927T000000Z" end="20180928T170000Z" work-start="20180927T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <task id="43" name="Design Email Feature" note="" work="57600" start="20180927T000000Z" end="20180928T170000Z" work-start="20180927T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+      <task id="44" name="Develop Email Feature" note="" work="57600" start="20180927T000000Z" end="20180928T170000Z" work-start="20180927T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+    </task>
+    <task id="45" name="Deploy Admin Interface" note="" work="201600" start="20180927T000000Z" end="20180927T170000Z" work-start="20180927T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <task id="46" name="Designing interface" note="" work="201600" start="20180927T000000Z" end="20180927T170000Z" work-start="20180927T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <task id="47" name="Refer to UX Planning minutes" note="Executive and managers" work="28800" start="20180927T000000Z" end="20180927T170000Z" work-start="20180927T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+        <task id="48" name="Prototyping " note="" work="172800" start="20180927T000000Z" end="20180927T170000Z" work-start="20180927T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+          <task id="49" name="Review feature" note="" work="28800" start="20180927T000000Z" end="20180927T170000Z" work-start="20180927T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+          <task id="50" name="Audit feature" note="" work="28800" start="20180927T000000Z" end="20180927T170000Z" work-start="20180927T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+          <task id="51" name="Product pricing" note="" work="115200" start="20180927T000000Z" end="20180927T170000Z" work-start="20180927T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+            <task id="52" name="Add" note="" work="28800" start="20180927T000000Z" end="20180927T170000Z" work-start="20180927T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+            <task id="53" name="View" note="" work="28800" start="20180927T000000Z" end="20180927T170000Z" work-start="20180927T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+            <task id="54" name="Edit" note="" work="28800" start="20180927T000000Z" end="20180927T170000Z" work-start="20180927T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+            <task id="55" name="Delete" note="" work="28800" start="20180927T000000Z" end="20180927T170000Z" work-start="20180927T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+          </task>
+        </task>
+      </task>
+    </task>
+  </tasks>
+  <resource-groups/>
+  <resources/>
+  <allocations/>
+</project>
