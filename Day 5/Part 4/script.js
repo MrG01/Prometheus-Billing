@@ -59,13 +59,24 @@ function validateSurname(){
 }
 
 /**
- * This function validates the age from the age input
+ * This function validates the age from the age input  18-38, 42-64
  */
 function validateAge(){
     var age = document.getElementById('age');
     var p = document.getElementById('error-age');
 
-    if(age.value === "" || age.value === undefined){
+    if(
+        age.value === "" || age.value === undefined ||
+        ( !(age.value >= 18 && age.value <= 38) && !(age.value >= 42 && age.value <= 64) )
+    ) {
+        if(age.value < 18){
+            p.innerHTML = "Too Young.";
+        } else if (age.value > 64) {
+            p.innerHTML = "Too old.";
+        } else {
+            p.innerHTML = "Invalid age.";
+        }
+
         p.classList.remove('is-invisible');
 
         return false;
