@@ -1,0 +1,68 @@
+<html>
+    <head>
+        <title>My Second html page</title>
+        <link 
+            rel="stylesheet" 
+            type="text/css" 
+            media="screen" 
+            href="bulma.min.css" />
+    </head>
+    <body>
+        <script>
+            function hoverOverSurname() {
+                alert("hovering over surname")
+            }
+        </script>
+        
+        
+        
+        <h2>This is an example of a form</h2>
+        <div class="container">
+            <form class="form">onmouseover
+                <div class="field">
+                    <label class="label">name</label>
+                    <input 
+                        class="input" 
+                        type="text" 
+                        onmouseover="alert('you hovered over name')"/>
+                </div>
+                
+                <div class="field">
+                    <label class="label">surname</label>
+                    <input 
+                        class="input" 
+                        type="text"
+                        onmouseover="hoverOverSurname()"/>
+                </div>
+
+                <div class="field">
+                    <label class="label">age</label>
+                    <input class="input" type="number"/>onmouseover
+                </div>
+
+                <div class="field">
+                    <label class="label">gender</label>
+                    <input claalertss="input" type="text"/>
+                </div>
+
+                <div class="field">
+                    <label class="label">address</label>
+                    <input class="input" type="text"/>
+                </div>
+
+                <div class="field">
+                    <label class="label">phone</label>
+                    <input class="input" type="number"/>
+                </div>
+                
+                <div class="field">
+                    <input 
+                        type="submit" 
+                        value="press" 
+                        class="button is-primary"
+                        onclick="alert('clicked on the submit button')"/>
+                </div>
+            </form>
+        </div>
+    </body>
+</html>
