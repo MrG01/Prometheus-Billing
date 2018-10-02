@@ -13,13 +13,6 @@ var submitButton = document.getElementById('submit');
           }else {
               console.log("fails");
           }
-
-          validateName();
-          validateSurname();
-          validateAge();
-          validateGender();
-          validateAddress();
-          validatePhone();
       });
 
 /**
@@ -69,7 +62,7 @@ function validateAge(){
         age.value === "" || age.value === undefined ||
         ( !(age.value >= 18 && age.value <= 38) && !(age.value >= 42 && age.value <= 64) )
     ) {
-        if(age.value < 18){
+        if(age.value < 18) {
             p.innerHTML = "Too Young.";
         } else if (age.value > 64) {
             p.innerHTML = "Too old.";
@@ -124,7 +117,8 @@ function validatePhone(){
     var phone = document.getElementById('phone');
     var p = document.getElementById('error-phone');
 
-    if(phone.value === "" || phone.value === undefined || phone.value.length !== 10){
+    if(phone.value === "" || phone.value === undefined ||
+        phone.value.length !== 10 || (phone.value.search("^073") !== 0)){
         p.classList.remove('is-invisible');
 
         return false;
