@@ -165,7 +165,7 @@ function agencyHandler(event){
 }
 
 function getLines(token){
-    var agency = getSelectedAgency;
+    var agency = getSelectedAgency();
 
     var request = new XMLHttpRequest();
     request.addEventListener('load', function(){
@@ -202,13 +202,19 @@ function lineHandler(event){
 }
 
 function showStops(token){
+    var agency = getSelectedAgency();
+    var line = getSelectedLine();
     var request = new XMLHttpRequest();
     request.addEventListener('load', function(){
         var response = JSON.parse(this.responseText);
 
-        console.log(response);
+        showMap(response);
     });
-    request.open('GET', '' , true);
+    request.open(
+        'GET',
+        'https://platform.whereismytransport.com/api/stops?agencies=' + agency
+                    + '&servesLines=' + line,
+        true);
     request.setRequestHeader('Accept', 'application/json');
     request.setRequestHeader('Authorization', 'Bearer ' + token);
     request.send();
@@ -239,11 +245,55 @@ function showForm(formId){
     document.getElementById(formId).style.display = 'block';
 }
 
-function showMap(){
-    mapboxgl.accessToken = 'INSERT TOKEN HERE';
+function showMap(stopArray){
+    var stopIndex = parseInt((stopArray.length/2)-1);
+    var geo = stopArray[stopIndex].geometry;
+    mapboxgl.accessToken = 'INSERT KEY HERE';
     var map = new mapboxgl.Map({
         container: 'map',
-        style: 'mapbox://styles/mapbox/streets-v10'
+        style: 'mapbox://styles/mapbox/streets-v10',
+        center: [geo.coordinates[0], geo.coordinates[1]],
+        zoom: 12
+    });
+
+    map.on('load', () =>{
+        addStops(map, stopArray);
+    });
+}
+
+function addStops(map, stops){
+    var geoArray = [];
+
+    stops.forEach(function(stop){
+        var geo = stop.geometry;
+        geoArray.push([
+            geo.coordinates[0],
+            geo.coordinates[1]
+        ]);
+    });
+
+    map.addLayer({
+        "id": "route",
+        "type": "line",
+        "source": {
+            "type": "geojson",
+            "data": {
+                "type": "Feature",
+                "properties": {},
+                "geometry": {
+                    "type": "LineString",
+                    "coordinates": geoArray
+                }
+            }
+        },
+        "layout": {
+            "line-join": "round",
+            "line-cap": "round"
+        },
+        "paint": {
+            "line-color": "#888",
+            "line-width": 8
+        }
     });
 }
 
