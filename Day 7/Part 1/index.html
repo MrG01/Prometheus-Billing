@@ -1,0 +1,92 @@
+<html>
+<head>
+    <title>Connecting to the WhereIsMyTransport API</title>
+    <link
+            rel="stylesheet"
+            type="text/css"
+            media="screen"
+            href="bulma.min.css" />
+    <meta charset="UTF-8" />
+</head>
+<body>
+<br />
+<div class="container columns is-fluid" id="login-container">
+
+    <div class="container" id="login-form" style="padding-right: 20px;">
+        <form class="form is-half">
+            <div class="field">
+                <label class="label">Client Id</label>
+                <input
+                        id="client-id"
+                        class="input"
+                        type="text" />
+            </div>
+
+            <div class="field">
+                <label class="label">Client Secret</label>
+                <input
+                        id="client-secret"
+                        class="input"
+                        type="text" />
+            </div>
+
+            <div class="field">
+                <input type="submit" id="submit" value="login" class="button is-primary" />
+            </div>
+        </form>
+    </div>
+
+    <div class="container" id="agencies-form">
+        <!-- This will list the agencies-->
+        <form class="form is-half">
+            <div class="field">
+                <label class="label">Agencies</label>
+                <select id="agencies-select" type="text" >
+                    <option value="" disabled="disabled">No agencies available</option>
+                </select>
+            </div>
+
+            <div class="field">
+                <input type="submit" id="submit-agency" value="submit agency" class="button is-primary"/>
+            </div>
+        </form>
+    </div>
+
+    <div class="container" id="lines-form">
+        <!-- this form will list the lines-->
+        <form class="form is-half">
+            <div class="field">
+                <label class="label">Lines</label>
+                <select id="lines-select" type="text" >
+                    <option value="" disabled="disabled">No lines available</option>
+                </select>
+            </div>
+
+            <div class="field">
+                <input type="submit" id="submit-lines" value='submit line' class="button is-primary"/>
+            </div>
+        </form>
+    </div>
+
+    <div class="container" id="logout-form">
+        <!-- this is the logout form -->
+        <form class="form is-half">
+            <div class="field">
+                <input
+                    type="submit"
+                    id="submit-logout"
+                    value="logout"
+                    class="button is-danger" />
+            </div>
+        </form>
+    </div>
+</div>
+<div id="result" class="container is-primary">
+    Result goes here
+</div>
+
+
+
+<script src="script.js"></script>
+</body>
+</html>
