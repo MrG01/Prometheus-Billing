@@ -138,20 +138,23 @@ function agencyHandler(event){
     event.preventDefault();
 
     try {
-        getLines(getToken());
+      var agencies = document.getElementById('agencies-select');
+      var selectedAgency = agencies.options[agencies.selectedIndex].value;
+      
+        getLines(getToken(), selectedAgency);
     } catch(error){
         console.log("unable to get token. There was an error" + error.message);
     }
 }
 
-function getLines(token){
+function getLines(token, agency){
     var request = new XMLHttpRequest();
     request.addEventListener('load', function(){
        var response = JSON.parse(this.responseText);
 
        addLinesToDropDown(response);
     });
-    request.open('GET', 'https://platform.whereismytransport.com/api/lines', true);
+    request.open('GET', 'https://platform.whereismytransport.com/api/lines?agencies=' + agency, true);
     request.setRequestHeader('Accept', 'application/json');
     request.setRequestHeader('Authorization', 'Bearer ' + token);
     request.send();
@@ -177,3 +180,4 @@ function logout(){
     localStorage.removeItem('token');
     localStorage.removeItem('storageDate');
 }
+
