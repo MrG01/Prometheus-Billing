@@ -1,15 +1,19 @@
 window.onload = function() {
+    hideAll();
+
     if(hasToken()) {
         try {
             // get agencies
-            getAgencies(getToken())
+            getAgencies(getToken());
+            showForm('agencies-form');
         } catch(error) {
             console.log("unable to get token. There was an error" + error.message);
         }
+    } else {
+        showForm('login-form')
     }
 
-
-    var submitButton = document.getElementById('submit')
+    var submitButton = document.getElementById('submit');
     submitButton.addEventListener('click', loginHandler, false);
 
     var submitAgency = document.getElementById('submit-agency');
@@ -27,22 +31,19 @@ function hasToken() {
     //CHECK if token exists in local storage
 
     var token = localStorage.getItem('token');
-    var logoutForm = document.getElementById('logout-form');
 
     if(token) {
-        //hide the form if the token exists
-        var loginForm = document.getElementById('login-form')
         // loginForm.classList.add('is-invisible')
-        loginForm.style.display = 'none';
+        hideForm('login-form');
 
         //show the logout form
-        logoutForm.style.display = 'block';
+        showForm('logout-form');
 
         return true
     }
     else {
         //hide the logout form
-        logoutForm.style.display = 'none';
+        hideForm('logout-form');
 
         return false
     }
@@ -69,9 +70,11 @@ function getClientSecret() {
     return clientSecret.value
 }
 
-function loginHandler(){
-    var clientId = getClientId()
-    var clientSecret = getClientSecret()
+function loginHandler(event){
+    event.preventDefault();
+
+    var clientId = getClientId();
+    var clientSecret = getClientSecret();
 
     login(clientId, clientSecret)
 }
@@ -96,6 +99,11 @@ function login(clientId, clientSecret) {
         if(this.status === 200){
             localStorage.setItem('token', token)
             localStorage.setItem('storageDate', Date.now().toLocaleString())
+
+            getAgencies(getToken());
+
+            hideForm('login-form');
+            showForm('agencies-form');
         } else {
             console.log("failed to get token, invalid client details");
         }
@@ -126,12 +134,12 @@ function getAgencies(token) {
 }
 
 function addAgenciesToDropDown(agenciesList) {
-    var agenciesSelect = document.getElementById('agencies-select')
-    agenciesSelect.options.length = 0
-    agenciesSelect.options.add(new Option("Select an option", null, true, true))
+    var agenciesSelect = document.getElementById('agencies-select');
+    agenciesSelect.options.length = 0;
+    agenciesSelect.options.add(new Option("Select an option", null, true, true));
     agenciesList.forEach(function(agency) {
-        agenciesSelect.options.add(new Option(agency.name, agency.id, false, false))
-    })
+        agenciesSelect.options.add(new Option(agency.name, agency.id, false, false));
+    });
 }
 
 function agencyHandler(event){
@@ -140,8 +148,11 @@ function agencyHandler(event){
     try {
       var agencies = document.getElementById('agencies-select');
       var selectedAgency = agencies.options[agencies.selectedIndex].value;
-      
+
         getLines(getToken(), selectedAgency);
+
+        hideForm('agencies-form');
+        showForm('lines-form');
     } catch(error){
         console.log("unable to get token. There was an error" + error.message);
     }
@@ -172,12 +183,33 @@ function addLinesToDropDown(LinesList){
 function lineHandler(event){
     event.preventDefault();
 
-    console.log("Line submitted");
+    var lineSelect = document.getElementById('lines-select');
+    var lineSelected = lineSelect.options[lineSelect.selectedIndex].value;
+
+    console.log(lineSelected);
 }
 
 
 function logout(){
     localStorage.removeItem('token');
     localStorage.removeItem('storageDate');
+
+    hideAll();
+    showForm('login-form');
+}
+
+function hideForm(formId){
+    document.getElementById(formId).style.display = 'none';
+}
+
+function hideAll(){
+    hideForm('login-form');
+    hideForm('agencies-form');
+    hideForm('lines-form');
+    hideForm('logout-form');
+}
+
+function showForm(formId){
+    document.getElementById(formId).style.display = 'block';
 }
 
