@@ -33,13 +33,12 @@ function hasToken() {
     var token = localStorage.getItem('token');
     var storageDate = localStorage.getItem('storageDate');
 
-    if(token && date) {
-
-        var convertedDate = storageDate.replace(/,/gi,'');
+    if(token) {
+        var convertedDate = parseInt(storageDate.replace(/,/gi,''));
         var date = new Date(convertedDate);
         var dateNow = Date.now();
 
-        if(date+3600 < dateNow){
+        if(date+3600 > dateNow){
             logout();
             return false;
         }
@@ -156,25 +155,23 @@ function agencyHandler(event){
     event.preventDefault();
 
     try {
-      var agencies = document.getElementById('agencies-select');
-      var selectedAgency = agencies.options[agencies.selectedIndex].value;
+        getLines(getToken());
 
-        getLines(getToken(), selectedAgency);
-
-        hideForm('agencies-form');
+       // hideForm('agencies-form');
         showForm('lines-form');
     } catch(error){
         console.log("unable to get token. There was an error" + error.message);
     }
 }
 
-function getLines(token, agency){
+function getLines(token){
+    var agency = getSelectedAgency;
+
     var request = new XMLHttpRequest();
     request.addEventListener('load', function(){
        var response = JSON.parse(this.responseText);
 
        addLinesToDropDown(response);
-       console.log(response);
     });
     request.open('GET', 'https://platform.whereismytransport.com/api/lines?agencies=' + agency, true);
     request.setRequestHeader('Accept', 'application/json');
@@ -195,19 +192,26 @@ function lineHandler(event){
     event.preventDefault();
 
     try {
-        var lineSelect = document.getElementById('lines-select');
-        var lineSelected = lineSelect.options[lineSelect.selectedIndex].value;
+        showStops(getToken());
 
-        getLine(getToken(), lineSelected);
-
-        hideForm('lines-form');
+        //hideForm('lines-form');
         showForm('result');
     }catch(error){
         console.log("Unable to get line. An error has occured: " + error.message);
     }
 }
 
-function getLine(token, agency, lineSelected){
+function showStops(token){
+    var request = new XMLHttpRequest();
+    request.addEventListener('load', function(){
+        var response = JSON.parse(this.responseText);
+
+        console.log(response);
+    });
+    request.open('GET', '' , true);
+    request.setRequestHeader('Accept', 'application/json');
+    request.setRequestHeader('Authorization', 'Bearer ' + token);
+    request.send();
 
 }
 
@@ -241,5 +245,16 @@ function showMap(){
         container: 'map',
         style: 'mapbox://styles/mapbox/streets-v10'
     });
+}
+
+function getSelectedAgency(){
+    var agencies = document.getElementById('agencies-select');
+    return agencies.options[agencies.selectedIndex].value;
+}
+
+function getSelectedLine(){
+    var linesSelect = document.getElementById('lines-select');
+
+    return linesSelect.options[linesSelect.selectedIndex].value;
 }
 
