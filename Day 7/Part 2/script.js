@@ -31,8 +31,11 @@ function hasToken() {
     //CHECK if token exists in local storage
 
     var token = localStorage.getItem('token');
+    var storageDate = localStorage.getItem('storageDate');
+    var date = new Date(storageDate.replace(/,/gi,''));
+    var dateNow = Date.now();
 
-    if(token) {
+    if(token && (date+3600 < dateNow)) {
         // loginForm.classList.add('is-invisible')
         hideForm('login-form');
 
@@ -42,8 +45,7 @@ function hasToken() {
         return true
     }
     else {
-        //hide the logout form
-        hideForm('logout-form');
+        logout();
 
         return false
     }
@@ -207,9 +209,18 @@ function hideAll(){
     hideForm('agencies-form');
     hideForm('lines-form');
     hideForm('logout-form');
+    hideForm('result');
 }
 
 function showForm(formId){
     document.getElementById(formId).style.display = 'block';
+}
+
+function showMap(){
+    mapboxgl.accessToken = 'INSERT TOKEN HERE';
+    var map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/streets-v10'
+    });
 }
 
