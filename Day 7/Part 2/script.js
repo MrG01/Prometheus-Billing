@@ -32,10 +32,18 @@ function hasToken() {
 
     var token = localStorage.getItem('token');
     var storageDate = localStorage.getItem('storageDate');
-    var date = new Date(storageDate.replace(/,/gi,''));
-    var dateNow = Date.now();
 
-    if(token && (date+3600 < dateNow)) {
+    if(token && date) {
+
+        var convertedDate = storageDate.replace(/,/gi,'');
+        var date = new Date(convertedDate);
+        var dateNow = Date.now();
+
+        if(date+3600 < dateNow){
+            logout();
+            return false;
+        }
+
         // loginForm.classList.add('is-invisible')
         hideForm('login-form');
 
@@ -63,12 +71,12 @@ function getToken(){
 }
 
 function getClientId() {
-    var clientId = document.getElementById('client-id')
+    var clientId = document.getElementById('client-id');
     return clientId.value
 }
 
 function getClientSecret() {
-    var clientSecret = document.getElementById('client-secret')
+    var clientSecret = document.getElementById('client-secret');
     return clientSecret.value
 }
 
@@ -99,8 +107,8 @@ function login(clientId, clientSecret) {
         window.token = token;
 
         if(this.status === 200){
-            localStorage.setItem('token', token)
-            localStorage.setItem('storageDate', Date.now().toLocaleString())
+            localStorage.setItem('token', token);
+            localStorage.setItem('storageDate', Date.now().toLocaleString());
 
             getAgencies(getToken());
 
@@ -166,6 +174,7 @@ function getLines(token, agency){
        var response = JSON.parse(this.responseText);
 
        addLinesToDropDown(response);
+       console.log(response);
     });
     request.open('GET', 'https://platform.whereismytransport.com/api/lines?agencies=' + agency, true);
     request.setRequestHeader('Accept', 'application/json');
@@ -185,12 +194,22 @@ function addLinesToDropDown(LinesList){
 function lineHandler(event){
     event.preventDefault();
 
-    var lineSelect = document.getElementById('lines-select');
-    var lineSelected = lineSelect.options[lineSelect.selectedIndex].value;
+    try {
+        var lineSelect = document.getElementById('lines-select');
+        var lineSelected = lineSelect.options[lineSelect.selectedIndex].value;
 
-    console.log(lineSelected);
+        getLine(getToken(), lineSelected);
+
+        hideForm('lines-form');
+        showForm('result');
+    }catch(error){
+        console.log("Unable to get line. An error has occured: " + error.message);
+    }
 }
 
+function getLine(token, agency, lineSelected){
+
+}
 
 function logout(){
     localStorage.removeItem('token');
