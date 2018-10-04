@@ -35,9 +35,10 @@ function hasToken() {
 
     if(token) {
         var convertedDate = parseInt(storageDate.replace(/,/gi,''));
+        var date = new Date(convertedDate);
         var dateNow = Date.now();
 
-        if(convertedDate+3600*1000 < dateNow){
+        if(date+3600 > dateNow){
             logout();
             return false;
         }
@@ -247,7 +248,7 @@ function showForm(formId){
 function showMap(stopArray){
     var stopIndex = parseInt((stopArray.length/2)-1);
     var geo = stopArray[stopIndex].geometry;
-    mapboxgl.accessToken = 'pk.eyJ1IjoibXJsb3N0Y2hhciIsImEiOiJjam10azJxbXYwZjllM2tudzB4em90bHB1In0.vTd8T3loeAKyXcrA3kiXug';
+    mapboxgl.accessToken = 'INSERT KEY HERE';
     var map = new mapboxgl.Map({
         container: 'map',
         style: 'mapbox://styles/mapbox/streets-v10',
@@ -264,29 +265,36 @@ function addStops(map, stops){
     var geoArray = [];
 
     stops.forEach(function(stop){
-        var geo = stop;
-        geoArray.push({
-            "type": "Feature",
-            "properties" : {
-                "title": geo.name,
-                "description": geo.name
-            },
-            "geometry" : {
-                "coordinates": [
-                    geo.geometry.coordinates[0],
-                    geo.geometry.coordinates[1]
-                ],
-                "type": "Point"
-            }
-        });
+        var geo = stop.geometry;
+        geoArray.push([
+            geo.coordinates[0],
+            geo.coordinates[1]
+        ]);
     });
 
-    for(var i = 0; i < geoArray.length; ++i){
-        map.addSource('point' + i, {
-            type: 'geojson',
-            data: [geoArray[i]]
-        });
-    }
+    map.addLayer({
+        "id": "route",
+        "type": "line",
+        "source": {
+            "type": "geojson",
+            "data": {
+                "type": "Feature",
+                "properties": {},
+                "geometry": {
+                    "type": "LineString",
+                    "coordinates": geoArray
+                }
+            }
+        },
+        "layout": {
+            "line-join": "round",
+            "line-cap": "round"
+        },
+        "paint": {
+            "line-color": "#888",
+            "line-width": 8
+        }
+    });
 }
 
 function getSelectedAgency(){
@@ -299,4 +307,3 @@ function getSelectedLine(){
 
     return linesSelect.options[linesSelect.selectedIndex].value;
 }
-
