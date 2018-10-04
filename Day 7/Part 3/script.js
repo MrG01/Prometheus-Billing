@@ -35,10 +35,9 @@ function hasToken() {
 
     if(token) {
         var convertedDate = parseInt(storageDate.replace(/,/gi,''));
-        var date = new Date(convertedDate);
         var dateNow = Date.now();
 
-        if(date+3600 > dateNow){
+        if(convertedDate+3600*1000 < dateNow){
             logout();
             return false;
         }
@@ -265,36 +264,29 @@ function addStops(map, stops){
     var geoArray = [];
 
     stops.forEach(function(stop){
-        var geo = stop.geometry;
-        geoArray.push([
-            geo.coordinates[0],
-            geo.coordinates[1]
-        ]);
+        var geo = stop;
+        geoArray.push({
+            "type": "Feature",
+            "properties" : {
+                "title": geo.name,
+                "description": geo.name
+            },
+            "geometry" : {
+                "coordinates": [
+                    geo.geometry.coordinates[0],
+                    geo.geometry.coordinates[1]
+                ],
+                "type": "Point"
+            }
+        });
     });
 
-    map.addLayer({
-        "id": "route",
-        "type": "line",
-        "source": {
-            "type": "geojson",
-            "data": {
-                "type": "Feature",
-                "properties": {},
-                "geometry": {
-                    "type": "LineString",
-                    "coordinates": geoArray
-                }
-            }
-        },
-        "layout": {
-            "line-join": "round",
-            "line-cap": "round"
-        },
-        "paint": {
-            "line-color": "#888",
-            "line-width": 8
-        }
-    });
+    for(var i = 0; i < geoArray.length; ++i){
+        map.addSource('point' + i, {
+            type: 'geojson',
+            data: [geoArray[i]]
+        });
+    }
 }
 
 function getSelectedAgency(){
@@ -307,3 +299,4 @@ function getSelectedLine(){
 
     return linesSelect.options[linesSelect.selectedIndex].value;
 }
+
