@@ -276,12 +276,10 @@ function showMap(){
         zoom: 12
     });
 
-    window.startPin = new mapboxgl.Marker().setLngLat([0,0]).addTo(window.map);
-    window.destinationPin = new mapboxgl.Marker().setLngLat([0,0]).addTo(window.map);
+    window.startPin = new mapboxgl.Marker({draggable: true}).setLngLat([0,0]).addTo(window.map);
+    window.destinationPin = new mapboxgl.Marker({draggable: true}).setLngLat([0,0]).addTo(window.map);
 
     window.map.on('click', function(event){
-        console.log(event.lngLat);
-
         if(window.isStart === true){
             window.destinationPin.setLngLat(event.lngLat);
             window.isStart = false;
@@ -297,6 +295,33 @@ function showMap(){
 
 function journeyHandler(event){
     event.preventDefault();
+
+    var start = document.getElementById('start').value;
+    var destination = document.getElementById('destination').value;
+
+    var request = new XMLHttpRequest();
+    var payload = {
+      "geometry": {
+            "type": "MultiPoint",
+            "coordinates": [
+                start.split(','),
+                destination.split(',')
+            ]
+      },
+      "maxItineraries": 5
+    };
+
+    request.addEventListener('load', function(){
+        var response = JSON.parse(this.responseText);
+        console.log(response);
+    });
+    request.open('POST','https://platform.whereismytransport.com/api/journeys',true);
+    request.setRequestHeader('Accept','application/json');
+    request.setRequestHeader('Content-Type','application/json');
+    request.setRequestHeader('Authorization', 'Bearer ' + getToken());
+    request.send(JSON.stringify(payload));
+
+    console.log(start+','+destination);
 }
 
 function addStops(map, stops){
