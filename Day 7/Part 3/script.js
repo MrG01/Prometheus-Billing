@@ -247,7 +247,7 @@ function showForm(formId){
 function showMap(stopArray){
     var stopIndex = parseInt((stopArray.length/2)-1);
     var geo = stopArray[stopIndex].geometry;
-    mapboxgl.accessToken = 'pk.eyJ1IjoibXJsb3N0Y2hhciIsImEiOiJjam10azJxbXYwZjllM2tudzB4em90bHB1In0.vTd8T3loeAKyXcrA3kiXug';
+    mapboxgl.accessToken = 'INSERT KEY HERE';
     var map = new mapboxgl.Map({
         container: 'map',
         style: 'mapbox://styles/mapbox/streets-v10',
