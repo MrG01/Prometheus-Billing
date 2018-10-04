@@ -1,0 +1,130 @@
+<html>
+<head>
+    <title>Connecting to the WhereIsMyTransport API</title>
+    <link
+            rel="stylesheet"
+            type="text/css"
+            media="screen"
+            href="bulma.min.css" />
+    <meta charset="UTF-8" />
+    <link href='https://api.mapbox.com/mapbox-gl-js/v0.49.0/mapbox-gl.css' rel='stylesheet' />
+</head>
+<body>
+<br />
+<div class="container columns is-fluid" id="login-container">
+
+    <div class="container" id="login-form">
+        <form class="form is-half">
+            <div class="field">
+                <label class="label">Client Id</label>
+                <input
+                        id="client-id"
+                        class="input"
+                        type="text" />
+            </div>
+
+            <div class="field">
+                <label class="label">Client Secret</label>
+                <input
+                        id="client-secret"
+                        class="input"
+                        type="text" />
+            </div>
+
+            <div class="field">
+                <input
+                        type="submit"
+                        id="submit"
+                        value="login"
+                        class="button is-primary" />
+            </div>
+        </form>
+    </div>
+
+    <div class="container" id="agencies-form">
+        <!-- This will list the agencies-->
+        <form class="form is-half">
+            <div class="field">
+                <label class="label">Agencies</label>
+                <select id="agencies-select" type="text" >
+                    <option value="" disabled="disabled">No agencies available</option>
+                </select>
+            </div>
+
+            <div class="field">
+                <input
+                        type="submit"
+                        id="submit-agency"
+                        value="submit agency"
+                        class="button is-primary"/>
+            </div>
+        </form>
+    </div>
+
+    <div class="container" id="journey-form">
+        <form class="form is-half">
+            <label class="label">Start</label>
+            <input
+                    id="start"
+                    class="input"
+                    type="text" />
+            <label class="label">Destination</label>
+            <input
+                    id="destination"
+                    class="input"
+                    type="text" />
+            <input
+                    type="submit"
+                    id="submit-journey"
+                    value="Map"
+                    class="button is-primary" />
+        </form>
+    </div>
+
+    <div class="container" id="lines-form">
+        <!-- this form will list the lines-->
+        <form class="form is-half">
+            <div class="field">
+                <label class="label">Lines</label>
+                <select id="lines-select" type="text" >
+                    <option value="" disabled="disabled">No lines available</option>
+                </select>
+            </div>
+
+            <div class="field">
+                <input
+                        type="submit"
+                        id="submit-lines"
+                        value='submit line'
+                        class="button is-primary"/>
+            </div>
+        </form>
+    </div>
+
+    <div class="container" id="logout-form">
+        <!-- this is the logout form -->
+        <form class="form is-half">
+            <div class="field">
+                <input
+                        type="submit"
+                        id="submit-logout"
+                        value="logout"
+                        class="button is-danger" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="result" class="container is-primary">
+    <!-- Temp Map code -->
+    <div id='map' style='width: 100%; height: 500px;'></div>
+    <!-- End Temp Map code -->
+</div>
+
+
+
+<script src="script.js"></script>
+<script src='https://api.mapbox.com/mapbox-gl-js/v0.49.0/mapbox-gl.js'></script>
+
+</body>
+</html>
