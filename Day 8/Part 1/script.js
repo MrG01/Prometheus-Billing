@@ -254,7 +254,7 @@ function showForm(formId){
 function showMapWithStops(stopArray){
     var stopIndex = parseInt((stopArray.length/2)-1);
     var geo = stopArray[stopIndex].geometry;
-    mapboxgl.accessToken = 'pk.eyJ1IjoibXJsb3N0Y2hhciIsImEiOiJjam11YXIzdjkybWN3M3BvZWxvdTl2ZjdsIn0.2VIMVPnJYDIHhOIw0Uugbg';
+    mapboxgl.accessToken = 'INSERT TOKEN HERE';
     var map = new mapboxgl.Map({
         container: 'map',
         style: 'mapbox://styles/mapbox/streets-v10',
@@ -268,7 +268,7 @@ function showMapWithStops(stopArray){
 }
 
 function showMap(){
-    mapboxgl.accessToken = 'pk.eyJ1IjoibXJsb3N0Y2hhciIsImEiOiJjam11YXIzdjkybWN3M3BvZWxvdTl2ZjdsIn0.2VIMVPnJYDIHhOIw0Uugbg';
+    mapboxgl.accessToken = 'INSERT TOKEN HERE';
     window.map = new mapboxgl.Map({
         container: 'map',
         style: 'mapbox://styles/mapbox/streets-v10',
