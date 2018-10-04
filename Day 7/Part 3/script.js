@@ -217,7 +217,6 @@ function showStops(token){
     request.setRequestHeader('Accept', 'application/json');
     request.setRequestHeader('Authorization', 'Bearer ' + token);
     request.send();
-
 }
 
 function logout(){
@@ -247,7 +246,7 @@ function showForm(formId){
 function showMap(stopArray){
     var stopIndex = parseInt((stopArray.length/2)-1);
     var geo = stopArray[stopIndex].geometry;
-    mapboxgl.accessToken = 'INSERT KEY HERE';
+    mapboxgl.accessToken = 'INSERT TOKEN HERE';
     var map = new mapboxgl.Map({
         container: 'map',
         style: 'mapbox://styles/mapbox/streets-v10',
@@ -261,32 +260,79 @@ function showMap(stopArray){
 }
 
 function addStops(map, stops){
-    var geoArray = [];
+    var startPoint = stops[0].geometry.coordinates;
+    var endPoint = stops[stops.length -1].geometry.coordinates;
 
-    stops.forEach(function(stop){
-        var geo = stop;
-        geoArray.push({
-            "type": "Feature",
-            "properties" : {
-                "title": geo.name,
-                "description": geo.name
-            },
-            "geometry" : {
-                "coordinates": [
-                    geo.geometry.coordinates[0],
-                    geo.geometry.coordinates[1]
-                ],
-                "type": "Point"
-            }
-        });
-    });
+    //Directions
+    getDirections(map, startPoint, endPoint);
+    //Directions
 
-    for(var i = 0; i < geoArray.length; ++i){
-        map.addSource('point' + i, {
+    map.addLayer({
+        id: 'start',
+        type: 'circle',
+        source: {
             type: 'geojson',
-            data: [geoArray[i]]
-        });
-    }
+            data: {
+                type: 'Feature',
+                geometry: {
+                    type: 'Point',
+                    coordinates: startPoint
+                }
+            }
+        }
+    });
+    map.addLayer({
+        id: 'end',
+        type: 'circle',
+        source: {
+            type: 'geojson',
+            data: {
+                type: 'Feature',
+                geometry: {
+                    type: 'Point',
+                    coordinates: endPoint
+                }
+            }
+        }
+    });
+// this is where the JavaScript from the next step will go
+}
+
+function getDirections(map, startPoint, endPoint){
+    var request = new XMLHttpRequest();
+    request.addEventListener('load', function(){
+        var response = JSON.parse(this.responseText);
+
+        addMapLine(map, response.routes[0].geometry);
+    });
+    request.open(
+        'GET',
+        'https://api.mapbox.com/directions/v5/mapbox/driving/'
+        + startPoint[0] + ',' + startPoint[1] + ';' + endPoint[0] + ',' + endPoint[1] +
+        '?geometries=geojson&access_token=' + mapboxgl.accessToken,
+        true);
+    request.setRequestHeader('Accept', 'application/json');
+    request.send();
+}
+
+function addMapLine(map, geo){
+    //Directions
+    map.addLayer({
+        id: 'route',
+        type: 'line',
+        source: {
+            type: 'geojson',
+            data: {
+                type: 'Feature',
+                geometry: geo
+            }
+        },
+        paint: {
+            'line-width': 2
+        }
+    });
+    // this is where the code from the next step will go
+    //Directions
 }
 
 function getSelectedAgency(){
@@ -296,7 +342,6 @@ function getSelectedAgency(){
 
 function getSelectedLine(){
     var linesSelect = document.getElementById('lines-select');
-
     return linesSelect.options[linesSelect.selectedIndex].value;
 }
 
